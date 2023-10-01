@@ -1,1 +1,32 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 400,
+  "title": "Infant Mortality Rate vs. Life Expectancy",
+  "data": {
+    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
+  },
+  "mark": {
+    "type": "circle"
+  },
+  "encoding": {
+    "x": {
+      "field": "Infant mortality",
+      "type": "quantitative",
+      "title": "Infant Mortality Rate"
+    },
+    "y": {
+      "field": "Life expectancy",
+      "type": "quantitative",
+      "title": "Life Expectancy"
+    },
+    "size": {
+      "value": 100
+    },
+    "color": {
+      "field": "Country",
+      "type": "nominal"
+    }
+  }
+}
 
