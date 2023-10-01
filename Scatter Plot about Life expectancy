@@ -7,7 +7,8 @@
     "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
   },
   "mark": {
-    "type": "circle"
+    "type": "circle",
+    "tooltip": true
   },
   "encoding": {
     "x": {
@@ -29,4 +30,3 @@
     }
   }
 }
-
