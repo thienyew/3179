@@ -6,6 +6,24 @@
   "data": {
     "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
   },
+  "transform": [
+    {
+      "filter": {
+        "selection": "countrySelector"
+      }
+    }
+  ],
+  "selection": {
+    "countrySelector": {
+      "type": "multi",  // Allows selecting multiple countries
+      "fields": ["Country"],
+      "bind": {
+        "input": "select",
+        "options": ["Afghanistan", "Albania", "Algeria", /* Add all countries here */],
+        "name": "Select Countries"
+      }
+    }
+  },
   "mark": {
     "type": "circle",
     "tooltip": true
@@ -27,6 +45,13 @@
     "color": {
       "field": "Country",
       "type": "nominal"
+    }
+  },
+  "config": {
+    "range": {
+      "category": {
+        "scheme": "category20"  // Customize the color scheme if needed
+      }
     }
   }
 }
