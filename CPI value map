@@ -3,39 +3,57 @@
   "width": 800,
   "height": 400,
   "title": "CPI VALUE AROUND THE WORLD",
-  "projection": {"type": "equalEarth"},
-  "config": {"background": "#F0FFF0"},
-  "layer":[
+  "projection": { "type": "equalEarth" },
+  "config": { "background": "#F0FFF0" },
+  "layer": [
     {
       "data": {
         "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/ne_110m.json",
-        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+        "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
       },
       "transform": [
         {
           "lookup": "properties.NAME",
-          "from":{
+          "from": {
             "data": {
               "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
             },
             "key": "Country",
-            "fields": ["CPI","Currency-Code", "Life expectancy"]
+            "fields": ["CPI", "Currency-Code", "Life expectancy"]
           }
         }
       ],
-      "mark": {"type": "geoshape"},
+      "mark": { "type": "geoshape" },
       "encoding": {
-        "color":{
+        "color": {
           "field": "CPI",
           "type": "quantitative",
-          "scale": {"scheme": "greenblue","domain": [0, 400]}
+          "scale": { "scheme": "greenblue", "domain": [0, 400] }
         },
-        "tooltip":[
-          {"field":"properties.NAME", "type": "nominal", "title": "Country"},
-          {"field":"CPI", "type":"quantitative"},
-          {"field":"Currency-Code", "type":"nominal"},
-          {"field":"Life expectancy", "type":"quantitative"},
+        "tooltip": [
+          { "field": "properties.NAME", "type": "nominal", "title": "Country" },
+          { "field": "CPI", "type": "quantitative" },
+          { "field": "Currency-Code", "type": "nominal" },
+          { "field": "Life expectancy", "type": "quantitative" }
         ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "continent": "North America", "x": -120, "y": 40 },
+          { "continent": "South America", "x": -80, "y": -10 },
+          { "continent": "Europe", "x": 10, "y": 50 },
+          { "continent": "Asia", "x": 90, "y": 33 },
+          { "continent": "Africa", "x": 15, "y": -15 },
+          { "continent": "Australia", "x": 120, "y": -25 }
+        ]
+      },
+      "mark": { "type": "text", "align": "left", "baseline": "middle", "dx": 10 },
+      "encoding": {
+        "text": { "field": "continent", "type": "nominal" },
+        "longitude": { "field": "x", "type": "quantitative" },
+        "latitude": { "field": "y", "type": "quantitative" }
       }
     }
   ]
