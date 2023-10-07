@@ -1,149 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gloabal Statistics</title>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Statistics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #34c3eb; /* Updated background color to blue-green */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff; /* Background color for the content container */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    h1 {
+      color: #3498db;
+      text-align: center;
+    }
+
+    h2 {
+      color: #555;
+    }
+
+    p {
+      color: #777;
+    }
+
+    /* Custom color palette */
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #e74c3c;
+      --background-color: #f9f9f9;
+    }
+
+    /* Apply colors to elements */
+    body {
+      background-color: var(--background-color);
+    }
+
+    h1 {
+      color: var(--primary-color);
+    }
+
+    /* Add more color styles as needed */
+
+    /* Adjust layout for charts */
+    #vis {
+      width: 100%; /* Adjusted width to make it full width */
+      box-sizing: border-box;
+    }
+
+    #vis2 {
+      width: 100%; /* Adjusted width to make it full width */
+      box-sizing: border-box;
+    }
+
+    /* Background color for the chart containers */
+    #vis,
+    #vis2 {
+      background-color: #ffffff;
+      padding: 20px;
+      margin: 0;
+    }
+
+    /* Add text above the map chart */
+    #chart-text-above {
+      text-align: center;
+      margin-top: 20px;
+      color: #555; /* Text color */
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
+
 <body>
+  <div class="container">
     <h1>Global Statistics</h1>
     <h2>Introduction</h2>
-    <p>In this visualization, the aim is to create a compelling and informative representation of global statistics, covering a wide range of key indicators such as the Consumer Price Index (CPI), life expectancy, and more. Through vivid charts, graphs, and interactive elements, it intends to offer viewers a clear and engaging insight into the evolving trends and patterns that shape our world. By visually connecting data points and highlighting global disparities and progress, this visualization will empower individuals to better understand and appreciate the complex dynamics of our global society, fostering a deeper awareness of the challenges and opportunities that lie ahead.</p>    
+    <p>In this visualization, the aim is to create a compelling and informative representation of global statistics, covering a wide range of key indicators such as the Consumer Price Index (CPI), life expectancy, and more. Through vivid charts, graphs, and interactive elements, it intends to offer viewers a clear and engaging insight into the evolving trends and patterns that shape our world. By visually connecting data points and highlighting global disparities and progress, this visualization will empower individuals to better understand and appreciate the complex dynamics of our global society, fostering a deeper awareness of the challenges and opportunities that lie ahead.</p>
+
+    <!-- Text above the map chart -->
+    <div id="chart-text-above">
+      <h2>Global CPI Trends</h2>
+      <p>Explore Consumer Price Index (CPI) trends worldwide.</p>
+    </div>
+
     <div id="vis"></div>
 
-    <script type="text/javascript">
-      var spec = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "width": 800,
-        "height": 400,
-        "title": "CPI VALUE AROUND THE WORLD",
-        "projection": {"type": "equalEarth"},
-        "config": {"background": "#F0FFF0"},
-        "layer":[
-          {
-            "data": {
-              "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/ne_110m.json",
-              "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-            },
-            "transform": [
-              {
-                "lookup": "properties.NAME",
-                "from":{
-                  "data": {
-                    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
-                  },
-                  "key": "Country",
-                  "fields": ["CPI","Currency-Code", "Life expectancy"]
-                }
-              }
-            ],
-            "mark": {"type": "geoshape"},
-            "encoding": {
-              "color":{
-                "field": "CPI",
-                "type": "quantitative",
-                "scale": {"scheme": "greenblue","domain": [0, 400]}
-              },
-              "tooltip":[
-                {"field":"properties.NAME", "type": "nominal", "title": "Country"},
-                {"field":"CPI", "type":"quantitative"},
-                {"field":"Currency-Code", "type":"nominal"},
-                {"field":"Life expectancy", "type":"quantitative"},
-              ]
-            }
-          }
-        ]
-      };
-      var opt = {"renderer": "canvas", "actions": false};
-      vegaEmbed('#vis', spec, opt);
-    </script>
+    <!-- Text between the charts -->
+    <div id="chart-text">
+      <h2>Global Trends</h2>
+      <p>Explore the data and trends that impact our world.</p>
+    </div>
 
     <div id="vis2"></div>
+  </div>
 
-    <script type="text/javascript">
-        var spec = {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "width": 800,
-            "height": 400,
-            "title": "Infant Mortality Rate vs. Life Expectancy",
-            "data": {
-                "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
-            },
-            "transform": [
-                {
-                "filter": {
-                    "selection": "countrySelector",
-                    "oneOf": ["All"]  // Include "All" option to clear the filter
-                }
-                }
-            ],
-            "selection": {
-                "countrySelector": {
-                "type": "multi",  // Allows selecting multiple countries
-                "fields": ["Country"],
-                "bind": {
-                    "input": "select",
-                    "options": [
-                    "All", // Add "All" option to clear the filter
-                    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-                    "The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
-                    "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Ivory Coast", "Cape Verde", "Cambodia", "Cameroon", "Canada",
-                    "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Republic of the Congo", "Costa Rica", "Croatia", "Cuba",
-                    "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt",
-                    "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "The Gambia",
-                    "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Vatican City", "Honduras",
-                    "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Republic of Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
-                    "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
-                    "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Federated States of Micronesia",
-                    "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
-                    "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestinian National Authority", "Panama", "Papua New Guinea",
-                    "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
-                    "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
-                    "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
-                    "Tajikistan", "Tanzania", "Thailand", "East Timor", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
-                    "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-                    /* Add all countries here */
-                    ],
-                    "name": "Select Countries"
-                }
-                }
-            },
-            "mark": {
-                "type": "circle",
-                "tooltip": true
-            },
-            "encoding": {
-                "x": {
-                "field": "Infant mortality",
-                "type": "quantitative",
-                "title": "Infant Mortality Rate"
+  <script type="text/javascript">
+    var spec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": 800,
+      "height": 400,
+      "title": "CPI VALUE AROUND THE WORLD",
+      "projection": {"type": "equalEarth"},
+      "config": {"background": "#F0FFF0"},
+      "layer":[
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/ne_110m.json",
+            "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+          },
+          "transform": [
+            {
+              "lookup": "properties.NAME",
+              "from":{
+                "data": {
+                  "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
                 },
-                "y": {
-                "field": "Life expectancy",
-                "type": "quantitative",
-                "title": "Life Expectancy"
-                },
-                "size": {
-                "value": 100
-                },
-                "color": {
-                "field": "Country",
-                "type": "nominal"
-                }
-            },
-            "config": {
-                "range": {
-                "category": {
-                    "scheme": "category20"  // Customize the color scheme if needed
-                }
-                }
+                "key": "Country",
+                "fields": ["CPI","Currency-Code", "Life expectancy"]
+              }
             }
-        };
-        var opt = {"renderer": "canvas", "actions": false};
-        vegaEmbed('#vis2', spec, opt);
-      </script>
+          ],
+          "mark": {"type": "geoshape"},
+          "encoding": {
+            "color":{
+              "field": "CPI",
+              "type": "quantitative",
+              "scale": {"scheme": "greenblue","domain": [0, 400]}
+            },
+            "tooltip":[
+              {"field":"properties.NAME", "type": "nominal", "title": "Country"},
+              {"field":"CPI", "type":"quantitative"},
+              {"field":"Currency-Code", "type":"nominal"},
+              {"field":"Life expectancy", "type":"quantitative"},
+            ]
+          }
+        }
+      ]
+    }
+    var opt = {
+      "renderer": "canvas",
+      "actions": false
+    };
+    vegaEmbed('#vis', spec, opt);
+  </script>
+
+  <script type="text/javascript">
+    var spec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": 800,
+      "height": 400,
+      "title": "Infant Mortality Rate vs. Life Expectancy",
+      "data": {
+        "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
+      },
+      "transform": [
+        {
+          "filter": {
+            "selection": "countrySelector",
+            "oneOf": ["All"]  // Include "All" option to clear the filter
+          }
+        }
+      ],
+      "selection": {
+        "countrySelector": {
+          "type": "multi",  // Allows selecting multiple countries
+          "fields": ["Country"],
+          "bind": {
+            "input": "select",
+            "options": [
+              "All", // Add "All" option to clear the filter
+              "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+              "The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
+              "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Ivory Coast", "Cape Verde", "Cambodia", "Cameroon", "Canada",
+              "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Republic of the Congo", "Costa Rica", "Croatia", "Cuba",
+              "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt",
+              "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "The Gambia",
+              "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Vatican City", "Honduras",
+              "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Republic of Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
+              "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
+              "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Federated States of Micronesia",
+              "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
+              "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestinian National Authority", "Panama", "Papua New Guinea",
+              "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+              "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
+              "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+              "Tajikistan", "Tanzania", "Thailand", "East Timor", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
+              "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+              /* Add all countries here */
+            ],
+            "name": "Select Countries"
+          }
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "tooltip": true
+      },
+      "encoding": {
+        "x": {
+          "field": "Infant mortality",
+          "type": "quantitative",
+          "title": "Infant Mortality Rate"
+        },
+        "y": {
+          "field": "Life expectancy",
+          "type": "quantitative",
+          "title": "Life Expectancy"
+        },
+        "size": {
+          "value": 100
+        },
+        "color": {
+          "field": "Country",
+          "type": "nominal"
+        }
+      },
+      "config": {
+        "range": {
+          "category": {
+            "scheme": "category20"  // Customize the color scheme if needed
+          }
+        }
+      }
+    }
+    var opt = {
+      "renderer": "canvas",
+      "actions": false
+    };
+    vegaEmbed('#vis2', spec, opt);
+  </script>
 </body>
+
+<footer>
+  <p>&copy; 2023 Your Website Name</p>
+</footer>
+
 </html>
