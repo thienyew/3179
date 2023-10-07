@@ -17,7 +17,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
-      background-color: #fff; /* Background color for the content container */
+      background-color: #c4e3ff; /* Background color for the content container (light green-blue) */
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
     }
@@ -40,6 +40,7 @@
       --primary-color: #3498db;
       --secondary-color: #e74c3c;
       --background-color: #f9f9f9;
+      --chart-background-color: #ade6e0; /* Background color for the chart containers */
     }
 
     /* Apply colors to elements */
@@ -57,26 +58,25 @@
     #vis {
       width: 100%; /* Adjusted width to make it full width */
       box-sizing: border-box;
+      background-color: var(--chart-background-color); /* Background color for the chart container */
+      padding: 20px;
+      margin: 0;
     }
 
     #vis2 {
       width: 100%; /* Adjusted width to make it full width */
       box-sizing: border-box;
-    }
-
-    /* Background color for the chart containers */
-    #vis,
-    #vis2 {
-      background-color: #ffffff;
+      background-color: var(--chart-background-color); /* Background color for the chart container */
       padding: 20px;
       margin: 0;
     }
 
-    /* Add text above the map chart */
+    /* Background color for the text above the map chart */
     #chart-text-above {
       text-align: center;
-      margin-top: 20px;
+      background-color: var(--chart-background-color); /* Background color for the text container */
       color: #555; /* Text color */
+      padding: 10px;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -93,15 +93,15 @@
     <!-- Text above the map chart -->
     <div id="chart-text-above">
       <h2>Global CPI Trends</h2>
-      <p>Explore Consumer Price Index (CPI) trends worldwide.</p>
+      <p>The Consumer Price Index (CPI) values vary significantly across the world, reflecting the diverse economic conditions and cost of living in different countries. From high-cost regions in Western Europe and North America to more affordable areas in Asia and Africa, CPI serves as a vital benchmark for measuring inflation and gauging the purchasing power of consumers. These values not only influence economic policies but also impact the everyday lives of people, determining the affordability of goods and services in their respective regions. Understanding these global CPI variations is essential for businesses, policymakers, and individuals alike to make informed decisions and adapt to changing economic landscapes.</p>
     </div>
 
     <div id="vis"></div>
 
     <!-- Text between the charts -->
     <div id="chart-text">
-      <h2>Global Trends</h2>
-      <p>Explore the data and trends that impact our world.</p>
+      <h2>Infant Mortality Rate vs Life Expectancy</h2>
+      <p>Infant Mortality Rate (IMR) and Life Expectancy are two crucial demographic indicators that provide valuable insights into a nation's overall health and well-being. IMR reflects the number of infant deaths per 1,000 live births, highlighting a country's healthcare infrastructure and maternal and child care programs. Conversely, Life Expectancy signifies the average number of years a person can expect to live, indicating the overall quality of life and healthcare access. There is a strong correlation between these two metrics – lower IMR typically corresponds to higher life expectancy, demonstrating the importance of effective healthcare systems and public health initiatives in extending and improving the lives of a nation's citizens. Understanding the relationship between IMR and Life Expectancy is pivotal for policymakers in their efforts to enhance the overall health and longevity of their populations.</p>
     </div>
 
     <div id="vis2"></div>
@@ -110,42 +110,60 @@
   <script type="text/javascript">
     var spec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 800,
-      "height": 400,
+      "width": 1000,
+      "height": 550,
       "title": "CPI VALUE AROUND THE WORLD",
-      "projection": {"type": "equalEarth"},
-      "config": {"background": "#F0FFF0"},
-      "layer":[
+      "projection": { "type": "equalEarth" },
+      "config": { "background": "#F0FFF0" },
+      "layer": [
         {
           "data": {
             "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/ne_110m.json",
-            "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+            "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
           },
           "transform": [
             {
               "lookup": "properties.NAME",
-              "from":{
+              "from": {
                 "data": {
                   "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
                 },
                 "key": "Country",
-                "fields": ["CPI","Currency-Code", "Life expectancy"]
+                "fields": ["CPI", "Currency-Code", "Life expectancy"]
               }
             }
           ],
-          "mark": {"type": "geoshape"},
+          "mark": { "type": "geoshape" },
           "encoding": {
-            "color":{
+            "color": {
               "field": "CPI",
               "type": "quantitative",
-              "scale": {"scheme": "greenblue","domain": [0, 400]}
+              "scale": { "scheme": "greenblue", "domain": [0, 400] }
             },
-            "tooltip":[
-              {"field":"properties.NAME", "type": "nominal", "title": "Country"},
-              {"field":"CPI", "type":"quantitative"},
-              {"field":"Currency-Code", "type":"nominal"},
-              {"field":"Life expectancy", "type":"quantitative"},
+            "tooltip": [
+              { "field": "properties.NAME", "type": "nominal", "title": "Country" },
+              { "field": "CPI", "type": "quantitative" },
+              { "field": "Currency-Code", "type": "nominal" },
+              { "field": "Life expectancy", "type": "quantitative" }
             ]
+          }
+        },
+        {
+          "data": {
+            "values": [
+              { "continent": "North America", "x": -120, "y": 40 },
+              { "continent": "South America", "x": -80, "y": -10 },
+              { "continent": "Europe", "x": 10, "y": 50 },
+              { "continent": "Asia", "x": 90, "y": 33 },
+              { "continent": "Africa", "x": 15, "y": -15 },
+              { "continent": "Australia", "x": 120, "y": -25 }
+            ]
+          },
+          "mark": { "type": "text", "align": "left", "baseline": "middle", "dx": 10 },
+          "encoding": {
+            "text": { "field": "continent", "type": "nominal" },
+            "longitude": { "field": "x", "type": "quantitative" },
+            "latitude": { "field": "y", "type": "quantitative" }
           }
         }
       ]
@@ -160,8 +178,8 @@
   <script type="text/javascript">
     var spec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 800,
-      "height": 400,
+      "width": 900,
+      "height": 550,
       "title": "Infant Mortality Rate vs. Life Expectancy",
       "data": {
         "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
