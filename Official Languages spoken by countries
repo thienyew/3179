@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "aggregate": [{ "op": "count", "as": "Count" }],
+      "groupby": ["Official language"]
+    },
+    {
+      "filter": "datum.Count > 1"  // Filter languages spoken by multiple countries
+    }
+  ],
+  "mark": "arc",
+  "encoding": {
+    "theta": {
+      "field": "Count",
+      "type": "quantitative",
+      "stack": true,
+      "title": "Percentage of Countries"
+    },
+    "color": {
+      "field": "Official language",
+      "type": "nominal",
+      "title": "Official Language"
+    },
+    "tooltip": [
+      {"field": "Official language", "type": "nominal", "title": "Official Language"},
+      {"field": "Count", "type": "quantitative", "title": "Number of Countries"}
+    ]
+  },
+  "title": "Percentage of Countries by Official Language",
+  "width": 800,
+  "height": 400,
+  "config": {
+    "background": "#F0FFF0"  // Set background color
+  }
+}
