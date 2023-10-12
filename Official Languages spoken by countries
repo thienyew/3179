@@ -11,6 +11,10 @@
     },
     {
       "filter": "datum.Count > 1"  // Filter languages spoken by multiple countries
+    },
+    {
+      "calculate": "round(datum.Count / 223 * 100)",  // Calculate and round the percentage
+      "as": "Percentage"
     }
   ],
   "mark": "arc",
@@ -27,11 +31,12 @@
       "title": "Official Language"
     },
     "tooltip": [
-      {"field": "Official language", "type": "nominal", "title": "Official Language"},
-      {"field": "Count", "type": "quantitative", "title": "Number of Countries"}
+      {"field": "Official language", "type": "nominal", "title": "Official Language:"},
+      {"field": "Count", "type": "quantitative", "title": "Number of Countries:"},
+      {"field": "Percentage", "type": "quantitative", "title": "Percentage in the world:"}
     ]
   },
-  "title": "Percentage of Countries by Official Language",
+  "title": "PERCENTAGE OF LANGUAGES SPOKEN AS OFFICIAL LANGUAGE IN THE WORLD",
   "width": 800,
   "height": 400,
   "config": {
