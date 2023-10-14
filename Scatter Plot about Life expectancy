@@ -4,10 +4,10 @@
   "height": 400,
   "title": "Infant Mortality Rate vs. Life Expectancy",
   "data": {
-    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
+    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"
   },
   "transform": [
-    {
+    { 
       "filter": {
         "selection": "countrySelector",
         "oneOf": ["All"]  // Include "All" option to clear the filter
@@ -51,12 +51,12 @@
   },
   "encoding": {
     "x": {
-      "field": "Infant mortality",
+      "field": "Infant_Mortality",
       "type": "quantitative",
       "title": "Infant Mortality Rate"
     },
     "y": {
-      "field": "Life expectancy",
+      "field": "Life_Expectancy",
       "type": "quantitative",
       "title": "Life Expectancy"
     },
