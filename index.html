@@ -103,13 +103,17 @@
         <h2>Percentage Of Language Spoken as Official Language In The World</h2>
         <p>The "Percentage Of Languages Spoken as Official Language In The World" is a compelling visualization that offers valuable insights into the linguistic diversity of our global society. By aggregating data on official languages from various countries, it showcases the distribution and prevalence of different languages on a worldwide scale. Through a visually engaging pie chart, viewers can gain a deeper understanding of the significance of languages in shaping cultural identities and political landscapes. This visualization underscores the rich tapestry of languages spoken globally, highlighting the importance of multilingualism and cultural preservation. It serves as a reminder of the diversity that enriches our world and the role language plays in fostering cross-cultural communication and understanding.</p>
       <div id="vis3"></div>
+      <div id="chart-text-above3">
+        <h2>Percentage Of Language Spoken as Official Language In The World</h2>
+        <p>The "Percentage Of Languages Spoken as Official Language In The World" is a compelling visualization that offers valuable insights into the linguistic diversity of our global society. By aggregating data on official languages from various countries, it showcases the distribution and prevalence of different languages on a worldwide scale. Through a visually engaging pie chart, viewers can gain a deeper understanding of the significance of languages in shaping cultural identities and political landscapes. This visualization underscores the rich tapestry of languages spoken globally, highlighting the importance of multilingualism and cultural preservation. It serves as a reminder of the diversity that enriches our world and the role language plays in fostering cross-cultural communication and understanding.</p>
+      <div id="vis4"></div>
   </div>
 
   <script type="text/javascript">
     var spec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 1000,
-      "height": 550,
+      "width": 800,
+      "height": 400,
       "title": "CPI VALUE AROUND THE WORLD",
       "projection": { "type": "equalEarth" },
       "config": { "background": "#F0FFF0" },
@@ -124,10 +128,10 @@
               "lookup": "properties.NAME",
               "from": {
                 "data": {
-                  "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
+                  "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"
                 },
                 "key": "Country",
-                "fields": ["CPI", "Currency-Code", "Life expectancy"]
+                "fields": ["CPI", "Minimum_Wage", "Life_Expectancy"]
               }
             }
           ],
@@ -141,8 +145,8 @@
             "tooltip": [
               { "field": "properties.NAME", "type": "nominal", "title": "Country" },
               { "field": "CPI", "type": "quantitative" },
-              { "field": "Currency-Code", "type": "nominal" },
-              { "field": "Life expectancy", "type": "quantitative" }
+              { "field": "Minimum_Wage", "type": "quantitative" },
+              { "field": "Life_Expectancy", "type": "quantitative" }
             ]
           }
         },
@@ -175,83 +179,163 @@
 
   <script type="text/javascript">
     var spec = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "width": 900,
-        "height": 550,
-        "title": "INFANT MORTALITY RATE VS LIFE EXPECTANCY",
-        "data": {
-          "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv"
-        },
-        "transform": [
-          {
-            "filter": {
-              "selection": "countrySelector",
-              "oneOf": ["All"]  // Include "All" option to clear the filter
-            }
-          }
-        ],
-        "selection": {
-          "countrySelector": {
-            "type": "multi",  // Allows selecting multiple countries
-            "fields": ["Country"],
-            "bind": {
-              "input": "select",
-              "options": [
-                "All", // Add "All" option to clear the filter
-                "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-                "The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
-                "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Ivory Coast", "Cape Verde", "Cambodia", "Cameroon", "Canada",
-                "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Republic of the Congo", "Costa Rica", "Croatia", "Cuba",
-                "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt",
-                "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "The Gambia",
-                "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Vatican City", "Honduras",
-                "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Republic of Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
-                "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
-                "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Federated States of Micronesia",
-                "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
-                "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestinian National Authority", "Panama", "Papua New Guinea",
-                "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
-                "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
-                "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
-                "Tajikistan", "Tanzania", "Thailand", "East Timor", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
-                "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-                /* Add all countries here */
-              ],
-              "name": "Select Countries"
-            }
-          }
-        },
-        "mark": {
-          "type": "circle",
-          "tooltip": true
-        },
-        "encoding": {
-          "x": {
-            "field": "Infant mortality",
-            "type": "quantitative",
-            "title": "Infant Mortality Rate"
-          },
-          "y": {
-            "field": "Life expectancy",
-            "type": "quantitative",
-            "title": "Life Expectancy"
-          },
-          "size": {
-            "value": 100
-          },
-          "color": {
-            "field": "Country",
-            "type": "nominal"
-          }
-        },
-        "config": {
-          "range": {
-            "category": {
-              "scheme": "category20"  // Customize the color scheme if needed
-            }
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": 800,
+      "height": 400,
+      "data": {
+        "url": "https://raw.githubusercontent.com/raidishahrom/Monash-Vis/main/Data/world_data_2023.csv"
+      },
+      "params": [
+        {
+          "name": "Continent_selection",
+          "bind": {
+            "input": "select",
+            "options": [
+              null, 
+              "Africa",
+              "Central America and the Caribbean",
+              "Central Asia",
+              "East Asia",
+              "Europe",
+              "Middle East",
+              "North America",
+              "Oceania",
+              "South America",
+              "South Asia",
+              "Southeast Asia"
+            ],
+            "labels": [
+              "Show All",
+              "Africa",
+              "Central America and the Caribbean",
+              "Central Asia",
+              "East Asia",
+              "Europe",
+              "Middle East",
+              "North America",
+              "Oceania",
+              "South America",
+              "South Asia",
+              "Southeast Asia"
+            ],
+            "name": "Continent Selection: "
           }
         }
+      ],
+      "transform": [
+        {
+          "filter": "Continent_selection == null || datum.Continent == Continent_selection"
+        },
+        {"filter": {"not": {"field": "Unemployment_Rate", "equal": ""}}
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Infant_Mortality",
+          "type": "quantitative",
+          "title": "Infant Mortality",
+          "axis": {
+            "tickCount": 15,
+            "titleFontSize": 14,
+            "titlePadding": 20,
+            "labelFontSize": 13
+          }
+        },
+        "y": {
+          "field": "Life_Expectancy",
+          "type": "quantitative",
+          "title": "Life Expectancy",
+          "axis": {
+            "tickCount": 10,
+            "titleFontSize": 14,
+            "titlePadding": 15,
+            "labelFontSize": 13
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": 
+            {
+              "type": "circle",
+              "size": 130
+            },
+          "encoding": {
+            "color": {
+              "field": "Continent",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Africa",
+                  "Central America and the Caribbean",
+                  "Central Asia",
+                  "East Asia",
+                  "Europe",
+                  "Middle East",
+                  "North America",
+                  "Oceania",
+                  "South America",
+                  "South Asia",
+                  "Southeast Asia"
+                ],
+                "range": [
+                  "#3b6691", 
+                  "#736ca3", 
+                  "#ac6ea6", 
+                  "#da7397", 
+                  "#fc9783", 
+                  "#f88380", 
+                  "#f7bd5e", 
+                  "#ee924c", 
+                  "#ec734e", 
+                  "#de5b4e",  
+                  "#cc4349" ]
+              }
+            },
+            "opacity": {"value": 0.8},
+            "tooltip": [
+              {"field": "Country", "type": "nominal"},
+              {"field": "Continent", "type": "nominal"},
+              {"field": "Birth_Rate", "type": "quantitative", "title": "Birth Rate % "},
+              {"field": "Infant_Mortality", "type": "quantitative", "title": "Infant Mortality Rate % "}
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "middle",
+            "dx": -10,
+            "fontSize": 12,
+            "fontStyle": "italic"
+          },
+          "encoding": {
+            "text": {"field": "Country", "type": "nominal"},
+            "color": {"value": "black"},
+            "opacity": {
+              "condition": {
+                "test": "datum.Country == 'Niger' || datum.Country == 'Central African Rep.' || datum.Country == 'Senegal' || datum.Country == 'Australia' || datum.Country == 'Malaysia'",
+                "value": 1
+              },
+              "value": 0
+            },
+            "tooltip": [
+              {"field": "Country", "type": "nominal"},
+              {"field": "Continent", "type": "nominal"},
+              {"field": "Birth_Rate", "type": "quantitative", "title": "Birth Rate % "},
+              {"field": "Infant_Mortality", "type": "quantitative", "title": "Infant Mortality Rate % "}
+            ]
+          }
+        }
+      ],
+      "config": {
+        "view": {"stroke": "transparent"},
+        "background": "#F0FFF0",
+        "legend": {"orient": "right"}  // Change "left" to "right" to move the legend to the right
       }
+    }
+
       var opt = {
         "renderer": "canvas",
         "actions": false
@@ -261,55 +345,115 @@
 
     <script type="text/javascript">
       var spec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "data": {
-      "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world-data-2023.csv",
-      "format": {"type": "csv"}
-    },
-    "transform": [
-      {
-        "aggregate": [{ "op": "count", "as": "Count" }],
-        "groupby": ["Official language"]
-      },
-      {
-        "filter": "datum.Count > 1"  // Filter languages spoken by multiple countries
-      },
-      {
-        "calculate": "round(datum.Count / 223 * 100)",  // Calculate and round the percentage
-        "as": "Percentage"
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "data": {
+          "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv",
+          "format": {"type": "csv"}
+        },
+        "transform": [
+          {
+            "aggregate": [{ "op": "count", "as": "Count" }],
+            "groupby": ["Official_Language"]
+          },
+          {
+            "filter": "datum.Count > 1"  // Filter languages spoken by multiple countries
+          },
+          {
+            "calculate": "round(datum.Count / 223 * 100)",  // Calculate and round the percentage
+            "as": "Percentage"
+          }
+        ],
+        "mark": "arc",
+        "encoding": {
+          "theta": {
+            "field": "Count",
+            "type": "quantitative",
+            "stack": true,
+            "title": "Percentage of Countries"
+          },
+          "color": {
+            "field": "Official_Language",
+            "type": "nominal",
+            "title": "Official Language"
+          },
+          "tooltip": [
+            {"field": "Official_Language", "type": "nominal", "title": "Official Language:"},
+            {"field": "Count", "type": "quantitative", "title": "Number of Countries:"},
+            {"field": "Percentage", "type": "quantitative", "title": "Percentage in the world:"}
+          ]
+        },
+        "title": "PERCENTAGE OF LANGUAGES SPOKEN AS OFFICIAL LANGUAGE IN THE WORLD",
+        "width": 800,
+        "height": 400,
+        "config": {
+          "background": "#F0FFF0"  // Set background color
+        }
       }
-    ],
-    "mark": "arc",
-    "encoding": {
-      "theta": {
-        "field": "Count",
-        "type": "quantitative",
-        "stack": true,
-        "title": "Percentage of Countries"
-      },
-      "color": {
-        "field": "Official language",
-        "type": "nominal",
-        "title": "Official Language"
-      },
-      "tooltip": [
-        {"field": "Official language", "type": "nominal", "title": "Official Language:"},
-        {"field": "Count", "type": "quantitative", "title": "Number of Countries:"},
-        {"field": "Percentage", "type": "quantitative", "title": "Percentage in the world:"}
-      ]
-    },
-    "title": "PERCENTAGE OF LANGUAGES SPOKEN AS OFFICIAL LANGUAGE IN THE WORLD",
-    "width": 800,
-    "height": 400,
-    "config": {
-      "background": "#F0FFF0"  // Set background color
-    }
-  }
     var opt = {
       "renderer": "canvas",
       "actions": false
     };
     vegaEmbed('#vis3', spec, opt);
+  </script>
+
+  <script type="text/javascript">
+    var spec = {
+      "width": 800,
+      "height": 450,
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {"url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"},
+      "mark": "circle",
+      "encoding": {
+        "x": {
+          "field": "Primary_edu_enrollment",
+          "type": "quantitative",
+          "title": "Confirmed Cases"
+        },
+        "y": {
+          "field": "Tertiary_edu_enrollment",
+          "type": "quantitative"
+        },
+        "color": {"field": "Country", "type": "nominal"},
+        "size": {
+          "field": "Unemployment rate",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6],
+            "range": [50, 200, 350, 500, 650, 800]
+          }
+        },
+        "tooltip": [
+          {"field": "Country", 
+          "type": "ordinal", 
+          "title": "Country"},
+          {
+            "field": "Primary_edu_enrollment",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Primary Enrollment %"
+          },
+          {
+            "field": "Tertiary_edu_enrollment",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Tertiary Enrollment %"
+
+          },
+          {"field": "Unemployment rate", 
+          "type": "quantitative", 
+          "format": ".2f",
+          "title": "Unemployment Rate %"
+          }
+        ]
+      },
+      "config": {}
+    }
+  var opt = {
+    "renderer": "canvas",
+    "actions": false
+  };
+  vegaEmbed('#vis4', spec, opt);
   </script>
 
 </body>
