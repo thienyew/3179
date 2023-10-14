@@ -1,0 +1,52 @@
+{
+    "width": "container",
+    "height": 450,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {"url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"},
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "Primary_edu_enrollment",
+        "type": "quantitative",
+        "title": "Confirmed Cases"
+      },
+      "y": {
+        "field": "Tertiary_edu_enrollment",
+        "type": "quantitative"
+      },
+      "color": {"field": "Country", "type": "nominal"},
+      "size": {
+        "field": "Unemployment rate",
+        "type": "quantitative",
+        "scale": {
+          "type": "threshold",
+          "domain": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6],
+          "range": [50, 200, 350, 500, 650, 800]
+        }
+      },
+      "tooltip": [
+        {"field": "Country", 
+        "type": "ordinal", 
+        "title": "Country"},
+        {
+          "field": "Primary_edu_enrollment",
+          "type": "quantitative",
+          "format": ".2f",
+          "title": "Primary Enrollment %"
+        },
+        {
+          "field": "Tertiary_edu_enrollment",
+          "type": "quantitative",
+          "format": ".2f",
+          "title": "Tertiary Enrollment %"
+
+        },
+        {"field": "Unemployment rate", 
+        "type": "quantitative", 
+        "format": ".2f",
+        "title": "Unemployment Rate %"
+        }
+      ]
+    },
+    "config": {}
+  }
