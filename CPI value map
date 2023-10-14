@@ -19,7 +19,7 @@
               "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"
             },
             "key": "Country",
-            "fields": ["CPI", "Currency-Code", "Life expectancy"]
+            "fields": ["CPI", "Minimum_Wage", "Life_Expectancy"]
           }
         }
       ],
@@ -32,7 +32,9 @@
         },
         "tooltip": [
           { "field": "properties.NAME", "type": "nominal", "title": "Country" },
-          { "field": "CPI", "type": "quantitative" }
+          { "field": "CPI", "type": "quantitative" },
+          { "field": "Minimum_Wage", "type": "quantitative" },
+          { "field": "Life_Expectancy", "type": "quantitative" }
         ]
       }
     },
