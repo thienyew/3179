@@ -2,77 +2,156 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 800,
   "height": 400,
-  "title": "Infant Mortality Rate vs. Life Expectancy",
   "data": {
-    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"
+    "url": "https://raw.githubusercontent.com/raidishahrom/Monash-Vis/main/Data/world_data_2023.csv"
   },
-  "transform": [
-    { 
-      "filter": {
-        "selection": "countrySelector",
-        "oneOf": ["All"]  // Include "All" option to clear the filter
-      }
-    }
-  ],
-  "selection": {
-    "countrySelector": {
-      "type": "multi",  // Allows selecting multiple countries
-      "fields": ["Country"],
+  "params": [
+    {
+      "name": "Continent_selection",
       "bind": {
         "input": "select",
         "options": [
-          "All", // Add "All" option to clear the filter
-          "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
-          "The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
-          "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Ivory Coast", "Cape Verde", "Cambodia", "Cameroon", "Canada",
-          "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Republic of the Congo", "Costa Rica", "Croatia", "Cuba",
-          "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt",
-          "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "The Gambia",
-          "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Vatican City", "Honduras",
-          "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Republic of Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan",
-          "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
-          "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Federated States of Micronesia",
-          "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
-          "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestinian National Authority", "Panama", "Papua New Guinea",
-          "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
-          "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
-          "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
-          "Tajikistan", "Tanzania", "Thailand", "East Timor", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
-          "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
-          /* Add all countries here */
+          null, 
+          "Africa",
+          "Central America and the Caribbean",
+          "Central Asia",
+          "East Asia",
+          "Europe",
+          "Middle East",
+          "North America",
+          "Oceania",
+          "South America",
+          "South Asia",
+          "Southeast Asia"
         ],
-        "name": "Select Countries"
+        "labels": [
+          "Show All",
+          "Africa",
+          "Central America and the Caribbean",
+          "Central Asia",
+          "East Asia",
+          "Europe",
+          "Middle East",
+          "North America",
+          "Oceania",
+          "South America",
+          "South Asia",
+          "Southeast Asia"
+        ],
+        "name": "Continent Selection: "
       }
     }
-  },
-  "mark": {
-    "type": "circle",
-    "tooltip": true
-  },
+  ],
+  "transform": [
+    {
+      "filter": "Continent_selection == null || datum.Continent == Continent_selection"
+    },
+    {"filter": {"not": {"field": "Unemployment_Rate", "equal": ""}}
+    }
+  ],
   "encoding": {
     "x": {
       "field": "Infant_Mortality",
       "type": "quantitative",
-      "title": "Infant Mortality Rate"
+      "title": "Infant Mortality",
+      "axis": {
+        "tickCount": 15,
+        "titleFontSize": 14,
+        "titlePadding": 20,
+        "labelFontSize": 13
+      }
     },
     "y": {
       "field": "Life_Expectancy",
       "type": "quantitative",
-      "title": "Life Expectancy"
-    },
-    "size": {
-      "value": 100
-    },
-    "color": {
-      "field": "Country",
-      "type": "nominal"
-    }
-  },
-  "config": {
-    "range": {
-      "category": {
-        "scheme": "category20"  // Customize the color scheme if needed
+      "title": "Life Expectancy",
+      "axis": {
+        "tickCount": 10,
+        "titleFontSize": 14,
+        "titlePadding": 15,
+        "labelFontSize": 13
       }
     }
+  },
+  "layer": [
+    {
+      "mark": 
+        {
+          "type": "circle",
+          "size": 130
+        },
+      "encoding": {
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Africa",
+              "Central America and the Caribbean",
+              "Central Asia",
+              "East Asia",
+              "Europe",
+              "Middle East",
+              "North America",
+              "Oceania",
+              "South America",
+              "South Asia",
+              "Southeast Asia"
+            ],
+            "range": [
+              "#3b6691", 
+              "#736ca3", 
+              "#ac6ea6", 
+              "#da7397", 
+              "#fc9783", 
+              "#f88380", 
+              "#f7bd5e", 
+              "#ee924c", 
+              "#ec734e", 
+              "#de5b4e",  
+              "#cc4349" ]
+          }
+        },
+        "opacity": {"value": 0.8},
+        "tooltip": [
+          {"field": "Country", "type": "nominal"},
+          {"field": "Continent", "type": "nominal"},
+          {"field": "Birth_Rate", "type": "quantitative", "title": "Birth Rate % "},
+          {"field": "Infant_Mortality", "type": "quantitative", "title": "Infant Mortality Rate % "}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -10,
+        "fontSize": 12,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "text": {"field": "Country", "type": "nominal"},
+        "color": {"value": "black"},
+        "opacity": {
+          "condition": {
+            "test": "datum.Country == 'Niger' || datum.Country == 'Central African Rep.' || datum.Country == 'Senegal' || datum.Country == 'Australia' || datum.Country == 'Malaysia'",
+            "value": 1
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "Country", "type": "nominal"},
+          {"field": "Continent", "type": "nominal"},
+          {"field": "Birth_Rate", "type": "quantitative", "title": "Birth Rate % "},
+          {"field": "Infant_Mortality", "type": "quantitative", "title": "Infant Mortality Rate % "}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": "transparent"},
+    "background": "#F0FFF0",
+    "legend": {"orient": "right"}  // Change "left" to "right" to move the legend to the right
   }
 }
