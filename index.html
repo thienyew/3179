@@ -1,465 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Statistics</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #34c3eb; /* Updated background color to blue-green */
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #c4e3ff; /* Background color for the content container (light green-blue) */
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-    }
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
 
-    h1 {
-      color: #3498db;
-      text-align: center;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap" rel="stylesheet">
 
-    h2 {
-      color: #555;
-    }
-
-    p {
-      color: #777;
-    }
-
-    /* Custom color palette */
-    :root {
-      --primary-color: #3498db;
-      --secondary-color: #e74c3c;
-      --background-color: #f9f9f9;
-      --chart-background-color: #ade6e0; /* Background color for the chart containers */
-    }
-
-    /* Apply colors to elements */
-    body {
-      background-color: var(--background-color);
-    }
-
-    h1 {
-      color: var(--primary-color);
-    }
-
-    /* Add more color styles as needed */
-
-    /* Adjust layout for charts */
-    #vis {
-      width: 100%; /* Adjusted width to make it full width */
-      box-sizing: border-box;
-      background-color: var(--chart-background-color); /* Background color for the chart container */
-      padding: 20px;
-      margin: 0;
-    }
-
-    #vis2 {
-      width: 100%; /* Adjusted width to make it full width */
-      box-sizing: border-box;
-      background-color: var(--chart-background-color); /* Background color for the chart container */
-      padding: 20px;
-      margin: 0;
-    }
-
-    /* Background color for the text above the map chart */
-    #chart-text-above {
-      text-align: center;
-      background-color: var(--chart-background-color); /* Background color for the text container */
-      color: #555; /* Text color */
-      padding: 10px;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/grids-responsive-min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css" media="all">
+    <title>FIT 3179 Data Visualisation 2</title>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Global Statistics</h1>
-    <h1>Introduction</h1>
-    <p>In this visualization, the aim is to create a compelling and informative representation of global statistics, covering a wide range of key indicators such as the Consumer Price Index (CPI), life expectancy, and more. Through vivid charts, graphs, and interactive elements, it intends to offer viewers a clear and engaging insight into the evolving trends and patterns that shape our world. By visually connecting data points and highlighting global disparities and progress, this visualization will empower individuals to better understand and appreciate the complex dynamics of our global society, fostering a deeper awareness of the challenges and opportunities that lie ahead.</p>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <div id="title">
+                <h1>Gloabal Statistics</h1>
+            </div>
+        </div>
 
-    <!-- Text above the map chart -->
-      <div id="chart-text-above">
-        <h2>Global CPI Trends</h2>
-        <p>The Consumer Price Index (CPI) values vary significantly across the world, reflecting the diverse economic conditions and cost of living in different countries. From high-cost regions in Western Europe and North America to more affordable areas in Asia and Africa, CPI serves as a vital benchmark for measuring inflation and gauging the purchasing power of consumers. These values not only influence economic policies but also impact the everyday lives of people, determining the affordability of goods and services in their respective regions. Understanding these global CPI variations is essential for businesses, policymakers, and individuals alike to make informed decisions and adapt to changing economic landscapes.</p>
-      <div id="vis"></div>
-      <div id="chart-text">
-        <h2>Infant Mortality Rate vs Life Expectancy</h2>
-        <p>Infant Mortality Rate (IMR) and Life Expectancy are two crucial demographic indicators that provide valuable insights into a nation's overall health and well-being. IMR reflects the number of infant deaths per 1,000 live births, highlighting a country's healthcare infrastructure and maternal and child care programs. Conversely, Life Expectancy signifies the average number of years a person can expect to live, indicating the overall quality of life and healthcare access. There is a strong correlation between these two metrics – lower IMR typically corresponds to higher life expectancy, demonstrating the importance of effective healthcare systems and public health initiatives in extending and improving the lives of a nation's citizens. Understanding the relationship between IMR and Life Expectancy is pivotal for policymakers in their efforts to enhance the overall health and longevity of their populations.</p>
-      <div id="vis2"></div>
-      <div id="chart-text-above2">
-        <h2>Percentage Of Language Spoken as Official Language In The World</h2>
-        <p>The "Percentage Of Languages Spoken as Official Language In The World" is a compelling visualization that offers valuable insights into the linguistic diversity of our global society. By aggregating data on official languages from various countries, it showcases the distribution and prevalence of different languages on a worldwide scale. Through a visually engaging pie chart, viewers can gain a deeper understanding of the significance of languages in shaping cultural identities and political landscapes. This visualization underscores the rich tapestry of languages spoken globally, highlighting the importance of multilingualism and cultural preservation. It serves as a reminder of the diversity that enriches our world and the role language plays in fostering cross-cultural communication and understanding.</p>
-      <div id="vis3"></div>
-      <div id="chart-text-above3">
-        <h2>Percentage Of Language Spoken as Official Language In The World</h2>
-        <p>The "Percentage Of Languages Spoken as Official Language In The World" is a compelling visualization that offers valuable insights into the linguistic diversity of our global society. By aggregating data on official languages from various countries, it showcases the distribution and prevalence of different languages on a worldwide scale. Through a visually engaging pie chart, viewers can gain a deeper understanding of the significance of languages in shaping cultural identities and political landscapes. This visualization underscores the rich tapestry of languages spoken globally, highlighting the importance of multilingualism and cultural preservation. It serves as a reminder of the diversity that enriches our world and the role language plays in fostering cross-cultural communication and understanding.</p>
-      <div id="vis4"></div>
-  </div>
+        <div class="pure-u-1-2">
+            <div id="title_description">
+              <h1>Topic</h1>
+              <p>In this visualization, the aim is to create a compelling and informative representation of global statistics, covering a wide range of key indicators such as the Consumer Price Index (CPI), life expectancy, and more. Through vivid charts, graphs, and interactive elements, it intends to offer viewers a clear and engaging insight into the evolving trends and patterns that shape our world. By visually connecting data points and highlighting global disparities and progress, this visualization will empower individuals to better understand and appreciate the complex dynamics of our global society, fostering a deeper awareness of the challenges and opportunities that lie ahead.</p>
+            </div>
+        </div>
 
-  <script type="text/javascript">
-    var spec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 800,
-      "height": 400,
-      "title": "CPI VALUE AROUND THE WORLD",
-      "projection": { "type": "equalEarth" },
-      "config": { "background": "#F0FFF0" },
-      "layer": [
-        {
-          "data": {
-            "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/ne_110m.json",
-            "format": { "type": "topojson", "feature": "ne_110m_admin_0_countries" }
-          },
-          "transform": [
-            {
-              "lookup": "properties.NAME",
-              "from": {
-                "data": {
-                  "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"
-                },
-                "key": "Country",
-                "fields": ["CPI", "Minimum_Wage", "Life_Expectancy"]
-              }
-            }
-          ],
-          "mark": { "type": "geoshape" },
-          "encoding": {
-            "color": {
-              "field": "CPI",
-              "type": "quantitative",
-              "scale": { "scheme": "greenblue", "domain": [0, 400] }
-            },
-            "tooltip": [
-              { "field": "properties.NAME", "type": "nominal", "title": "Country" },
-              { "field": "CPI", "type": "quantitative" },
-              { "field": "Minimum_Wage", "type": "quantitative" },
-              { "field": "Life_Expectancy", "type": "quantitative" }
-            ]
-          }
-        },
-        {
-          "data": {
-            "values": [
-              { "continent": "North America", "x": -120, "y": 40 },
-              { "continent": "South America", "x": -80, "y": -10 },
-              { "continent": "Europe", "x": 10, "y": 50 },
-              { "continent": "Asia", "x": 90, "y": 33 },
-              { "continent": "Africa", "x": 15, "y": -15 },
-              { "continent": "Australia", "x": 120, "y": -25 }
-            ]
-          },
-          "mark": { "type": "text", "align": "left", "baseline": "middle", "dx": 10 },
-          "encoding": {
-            "text": { "field": "continent", "type": "nominal" },
-            "longitude": { "field": "x", "type": "quantitative" },
-            "latitude": { "field": "y", "type": "quantitative" }
-          }
-        }
-      ]
-    }
-    var opt = {
-      "renderer": "canvas",
-      "actions": false
-    };
-    vegaEmbed('#vis', spec, opt);
-  </script>
+        <div class="pure-u-1-2">
+          <div id="title_description">
+            <h1>Introduction</h1>
+            <p>In this visualization, the aim is to create a compelling and informative representation of global statistics, covering a wide range of key indicators such as the Consumer Price Index (CPI), life expectancy, and more. Through vivid charts, graphs, and interactive elements, it intends to offer viewers a clear and engaging insight into the evolving trends and patterns that shape our world. By visually connecting data points and highlighting global disparities and progress, this visualization will empower individuals to better understand and appreciate the complex dynamics of our global society, fostering a deeper awareness of the challenges and opportunities that lie ahead.</p>
+          </div>
+      </div>
+      
 
-  <script type="text/javascript">
-    var spec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 800,
-      "height": 400,
-      "data": {
-        "url": "https://raw.githubusercontent.com/raidishahrom/Monash-Vis/main/Data/world_data_2023.csv"
-      },
-      "params": [
-        {
-          "name": "Continent_selection",
-          "bind": {
-            "input": "select",
-            "options": [
-              null, 
-              "Africa",
-              "Central America and the Caribbean",
-              "Central Asia",
-              "East Asia",
-              "Europe",
-              "Middle East",
-              "North America",
-              "Oceania",
-              "South America",
-              "South Asia",
-              "Southeast Asia"
-            ],
-            "labels": [
-              "Show All",
-              "Africa",
-              "Central America and the Caribbean",
-              "Central Asia",
-              "East Asia",
-              "Europe",
-              "Middle East",
-              "North America",
-              "Oceania",
-              "South America",
-              "South Asia",
-              "Southeast Asia"
-            ],
-            "name": "Continent Selection: "
-          }
-        }
-      ],
-      "transform": [
-        {
-          "filter": "Continent_selection == null || datum.Continent == Continent_selection"
-        },
-        {"filter": {"not": {"field": "Unemployment_Rate", "equal": ""}}
-        }
-      ],
-      "encoding": {
-        "x": {
-          "field": "Infant_Mortality",
-          "type": "quantitative",
-          "title": "Infant Mortality",
-          "axis": {
-            "tickCount": 15,
-            "titleFontSize": 14,
-            "titlePadding": 20,
-            "labelFontSize": 13
-          }
-        },
-        "y": {
-          "field": "Life_Expectancy",
-          "type": "quantitative",
-          "title": "Life Expectancy",
-          "axis": {
-            "tickCount": 10,
-            "titleFontSize": 14,
-            "titlePadding": 15,
-            "labelFontSize": 13
-          }
-        }
-      },
-      "layer": [
-        {
-          "mark": 
-            {
-              "type": "circle",
-              "size": 130
-            },
-          "encoding": {
-            "color": {
-              "field": "Continent",
-              "type": "nominal",
-              "scale": {
-                "domain": [
-                  "Africa",
-                  "Central America and the Caribbean",
-                  "Central Asia",
-                  "East Asia",
-                  "Europe",
-                  "Middle East",
-                  "North America",
-                  "Oceania",
-                  "South America",
-                  "South Asia",
-                  "Southeast Asia"
-                ],
-                "range": [
-                  "#3b6691", 
-                  "#736ca3", 
-                  "#ac6ea6", 
-                  "#da7397", 
-                  "#fc9783", 
-                  "#f88380", 
-                  "#f7bd5e", 
-                  "#ee924c", 
-                  "#ec734e", 
-                  "#de5b4e",  
-                  "#cc4349" ]
-              }
-            },
-            "opacity": {"value": 0.8},
-            "tooltip": [
-              {"field": "Country", "type": "nominal"},
-              {"field": "Continent", "type": "nominal"},
-              {"field": "Birth_Rate", "type": "quantitative", "title": "Birth Rate % "},
-              {"field": "Infant_Mortality", "type": "quantitative", "title": "Infant Mortality Rate % "}
-            ]
-          }
-        },
-        {
-          "mark": {
-            "type": "text",
-            "align": "right",
-            "baseline": "middle",
-            "dx": -10,
-            "fontSize": 12,
-            "fontStyle": "italic"
-          },
-          "encoding": {
-            "text": {"field": "Country", "type": "nominal"},
-            "color": {"value": "black"},
-            "opacity": {
-              "condition": {
-                "test": "datum.Country == 'Niger' || datum.Country == 'Central African Rep.' || datum.Country == 'Senegal' || datum.Country == 'Australia' || datum.Country == 'Malaysia'",
-                "value": 1
-              },
-              "value": 0
-            },
-            "tooltip": [
-              {"field": "Country", "type": "nominal"},
-              {"field": "Continent", "type": "nominal"},
-              {"field": "Birth_Rate", "type": "quantitative", "title": "Birth Rate % "},
-              {"field": "Infant_Mortality", "type": "quantitative", "title": "Infant Mortality Rate % "}
-            ]
-          }
-        }
-      ],
-      "config": {
-        "view": {"stroke": "transparent"},
-        "background": "#F0FFF0",
-        "legend": {"orient": "right"}  // Change "left" to "right" to move the legend to the right
-      }
-    }
+        <h1 style="margin-top: 80px">______________________________________________________________________________________________________________________________________________________________________________________</h1>
 
-      var opt = {
-        "renderer": "canvas",
-        "actions": false
-      };
-      vegaEmbed('#vis2', spec, opt);
-    </script>
+        <div class="pure-u-1-2"; style="margin-bottom: 15px">
+          <div class="pure-u-3-2">
+            <h2>Global CPI Trends</h2>
+            <p>The Consumer Price Index (CPI) values vary significantly across the world, reflecting the diverse economic conditions and cost of living in different countries. From high-cost regions in Western Europe and North America to more affordable areas in Asia and Africa, CPI serves as a vital benchmark for measuring inflation and gauging the purchasing power of consumers. These values not only influence economic policies but also impact the everyday lives of people, determining the affordability of goods and services in their respective regions. Understanding these global CPI variations is essential for businesses, policymakers, and individuals alike to make informed decisions and adapt to changing economic landscapes.</p>    
+          </div>
+          
+          <div id="CPI_MAP"></div>
+        </div>
+
+        <div class="pure-u-1-2"; style="margin-bottom: 15px">
+            <div class="pure-u-3-2">
+              <h2>Infant Mortality Rate vs Life Expectancy</h2>
+              <p>Infant Mortality Rate (IMR) and Life Expectancy are two crucial demographic indicators that provide valuable insights into a nation's overall health and well-being. IMR reflects the number of infant deaths per 1,000 live births, highlighting a country's healthcare infrastructure and maternal and child care programs. Conversely, Life Expectancy signifies the average number of years a person can expect to live, indicating the overall quality of life and healthcare access. There is a strong correlation between these two metrics – lower IMR typically corresponds to higher life expectancy, demonstrating the importance of effective healthcare systems and public health initiatives in extending and improving the lives of a nation's citizens. Understanding the relationship between IMR and Life Expectancy is pivotal for policymakers in their efforts to enhance the overall health and longevity of their populations.</p>
+            </div>
+
+            <div id="SCATTER_PLOT"></div>
+        </div>
+
+
+        <div class="pure-u-1-2"; style="margin-bottom: 15px">
+            <div class="pure-u-3-2">
+              <h2>Percentage Of Language Spoken as Official Language In The World</h2>
+              <p>The "Percentage Of Languages Spoken as Official Language In The World" is a compelling visualization that offers valuable insights into the linguistic diversity of our global society. By aggregating data on official languages from various countries, it showcases the distribution and prevalence of different languages on a worldwide scale. Through a visually engaging pie chart, viewers can gain a deeper understanding of the significance of languages in shaping cultural identities and political landscapes. This visualization underscores the rich tapestry of languages spoken globally, highlighting the importance of multilingualism and cultural preservation. It serves as a reminder of the diversity that enriches our world and the role language plays in fostering cross-cultural communication and understanding.</p>
+            </div>
+            <div id="PIE_CHART"></div>
+        </div>
+
+        <div class="pure-u-1-2"; style="margin-bottom: 15px">
+            <div class="pure-u-3-2">
+              <h2>Infant Mortality Rate vs Life Expectancy</h2>
+              <p>Infant Mortality Rate (IMR) and Life Expectancy are two crucial demographic indicators that provide valuable insights into a nation's overall health and well-being. IMR reflects the number of infant deaths per 1,000 live births, highlighting a country's healthcare infrastructure and maternal and child care programs. Conversely, Life Expectancy signifies the average number of years a person can expect to live, indicating the overall quality of life and healthcare access. There is a strong correlation between these two metrics – lower IMR typically corresponds to higher life expectancy, demonstrating the importance of effective healthcare systems and public health initiatives in extending and improving the lives of a nation's citizens. Understanding the relationship between IMR and Life Expectancy is pivotal for policymakers in their efforts to enhance the overall health and longevity of their populations.</p>
+            </div>
+
+            <div id="BUBBLE_CHART"></div>
+        </div>
+
+
+        <div class="pure-u-1-2"; style="margin-bottom: 15px">
+            <div class="pure-u-3-2">
+              <h2>Infant Mortality Rate vs Life Expectancy</h2>
+              <p>Infant Mortality Rate (IMR) and Life Expectancy are two crucial demographic indicators that provide valuable insights into a nation's overall health and well-being. IMR reflects the number of infant deaths per 1,000 live births, highlighting a country's healthcare infrastructure and maternal and child care programs. Conversely, Life Expectancy signifies the average number of years a person can expect to live, indicating the overall quality of life and healthcare access. There is a strong correlation between these two metrics – lower IMR typically corresponds to higher life expectancy, demonstrating the importance of effective healthcare systems and public health initiatives in extending and improving the lives of a nation's citizens. Understanding the relationship between IMR and Life Expectancy is pivotal for policymakers in their efforts to enhance the overall health and longevity of their populations.</p>
+            </div>
+ 
+            <div id="BAR_CHART"></div>
+        </div>
+        
+        <div class="pure-u-1-2"; style="margin-bottom: 15px">
+            <div class="pure-u-3-2">
+              <h2>Infant Mortality Rate vs Life Expectancy</h2>
+              <p>Infant Mortality Rate (IMR) and Life Expectancy are two crucial demographic indicators that provide valuable insights into a nation's overall health and well-being. IMR reflects the number of infant deaths per 1,000 live births, highlighting a country's healthcare infrastructure and maternal and child care programs. Conversely, Life Expectancy signifies the average number of years a person can expect to live, indicating the overall quality of life and healthcare access. There is a strong correlation between these two metrics – lower IMR typically corresponds to higher life expectancy, demonstrating the importance of effective healthcare systems and public health initiatives in extending and improving the lives of a nation's citizens. Understanding the relationship between IMR and Life Expectancy is pivotal for policymakers in their efforts to enhance the overall health and longevity of their populations.</p>
+            </div>
+
+            <div id="heat_map"></div>
+        </div>
+
+        <h1 style="margin-top: 80px">______________________________________________________________________________________________________________________________________________________________________________________</h1>
+
+        <div class="pure-u-1">
+            <div id="title">
+                <h1 style="font-size: 35px; color: black; font-family: 'Montserrat', sans-serif; font-weight: 10px">
+                    BIBLIOGRAPHY
+                </h1>
+            </div>
+            <p style="font-size: 15px">
+                Kumarrajarshi. (2017). <em>Life expectancy (WHO)</em> [Data file]. Retrieved from https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who 
+                <br><br>
+            </p>
+        </div>
+
+        <div class="pure-u-1" style="margin-bottom: 10px">
+            <div id="authorship">
+                <p>
+                    Visualisation by Toh Thien Yew 
+                    Student ID: 32889879
+                    FIT3179 Data Visualization 2
+                    The dataset chosen is retrieved from Kaggle (<a href="https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who" target="_blank" rel="noreferrer noopener">Kumarrajarshi, 2017</a), 
+                    and the data has been preprocessed properly before use.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript">
-      var spec = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "data": {
-          "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv",
-          "format": {"type": "csv"}
-        },
-        "transform": [
-          {
-            "aggregate": [{ "op": "count", "as": "Count" }],
-            "groupby": ["Official_Language"]
-          },
-          {
-            "filter": "datum.Count > 1"  // Filter languages spoken by multiple countries
-          },
-          {
-            "calculate": "round(datum.Count / 223 * 100)",  // Calculate and round the percentage
-            "as": "Percentage"
-          }
-        ],
-        "mark": "arc",
-        "encoding": {
-          "theta": {
-            "field": "Count",
-            "type": "quantitative",
-            "stack": true,
-            "title": "Percentage of Countries"
-          },
-          "color": {
-            "field": "Official_Language",
-            "type": "nominal",
-            "title": "Official Language"
-          },
-          "tooltip": [
-            {"field": "Official_Language", "type": "nominal", "title": "Official Language:"},
-            {"field": "Count", "type": "quantitative", "title": "Number of Countries:"},
-            {"field": "Percentage", "type": "quantitative", "title": "Percentage in the world:"}
-          ]
-        },
-        "title": "PERCENTAGE OF LANGUAGES SPOKEN AS OFFICIAL LANGUAGE IN THE WORLD",
-        "width": 800,
-        "height": 400,
-        "config": {
-          "background": "#F0FFF0"  // Set background color
-        }
-      }
-    var opt = {
-      "renderer": "canvas",
-      "actions": false
-    };
-    vegaEmbed('#vis3', spec, opt);
-  </script>
+      var spec1 = "visualization.vl.json";
+      vegaEmbed('#CPI_MAP', spec1).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
 
-  <script type="text/javascript">
-    var spec = {
-      "width": 800,
-      "height": 450,
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "data": {"url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"},
-      "mark": "circle",
-      "encoding": {
-        "x": {
-          "field": "Primary_edu_enrollment",
-          "type": "quantitative",
-          "title": "Confirmed Cases"
-        },
-        "y": {
-          "field": "Tertiary_edu_enrollment",
-          "type": "quantitative"
-        },
-        "color": {"field": "Country", "type": "nominal"},
-        "size": {
-          "field": "Unemployment rate",
-          "type": "quantitative",
-          "scale": {
-            "type": "threshold",
-            "domain": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6],
-            "range": [50, 200, 350, 500, 650, 800]
-          }
-        },
-        "tooltip": [
-          {"field": "Country", 
-          "type": "ordinal", 
-          "title": "Country"},
-          {
-            "field": "Primary_edu_enrollment",
-            "type": "quantitative",
-            "format": ".2f",
-            "title": "Primary Enrollment %"
-          },
-          {
-            "field": "Tertiary_edu_enrollment",
-            "type": "quantitative",
-            "format": ".2f",
-            "title": "Tertiary Enrollment %"
+      var spec2 = "visualization.vl-2.json";
+      vegaEmbed('#SCATTER_PLOT', spec2).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+      
+      var spec3 = "visualization.vl-3.json";
+      vegaEmbed('#PIE_CHART', spec3).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
 
-          },
-          {"field": "Unemployment rate", 
-          "type": "quantitative", 
-          "format": ".2f",
-          "title": "Unemployment Rate %"
-          }
-        ]
-      },
-      "config": {}
-    }
-  var opt = {
-    "renderer": "canvas",
-    "actions": false
-  };
-  vegaEmbed('#vis4', spec, opt);
-  </script>
+      var spec4 = "visualization.vl-4.json";
+      vegaEmbed('#BUBBLE_CHART', spec4).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
 
+      var spec5 = "visualization.vl-5.json";
+      vegaEmbed('#BAR_CHART', spec5).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+      var spec6 = "visualization.vl-6.json";
+      vegaEmbed('#heat_map', spec6).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+    </script>
 </body>
-
-<footer>
-  <p>&copy; TohThienYew FIT3179 Data Visualisation 2</p>
-</footer>
-
 </html>
