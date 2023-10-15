@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "aggregate": [{ "op": "count", "as": "Count" }],
+      "groupby": ["Official_Language"]
+    },
+    {
+      "filter": "datum.Count > 1"  // Filter languages spoken by multiple countries
+    },
+    {
+      "calculate": "round(datum.Count / 223 * 100)",  // Calculate and round the percentage
+      "as": "Percentage"
+    }
+  ],
+  "mark": "arc",
+  "encoding": {
+    "theta": {
+      "field": "Count",
+      "type": "quantitative",
+      "stack": true,
+      "title": "Percentage of Countries"
+    },
+    "color": {
+      "field": "Official_Language",
+      "type": "nominal",
+      "title": "Official Language"
+    },
+    "tooltip": [
+      {"field": "Official_Language", "type": "nominal", "title": "Official Language:"},
+      {"field": "Count", "type": "quantitative", "title": "Number of Countries:"},
+      {"field": "Percentage", "type": "quantitative", "title": "Percentage in the world:"}
+    ]
+  },
+  "title": "PERCENTAGE OF LANGUAGES SPOKEN AS OFFICIAL LANGUAGE IN THE WORLD",
+  "width": 800,
+  "height": 400,
+  "config": {
+    "background": "#F0FFF0"  // Set background color
+  }
+}
