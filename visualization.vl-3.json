@@ -37,7 +37,7 @@
     ]
   },
   "title": "PERCENTAGE OF LANGUAGES SPOKEN AS OFFICIAL LANGUAGE IN THE WORLD",
-  "width": 800,
+  "width": 500,
   "height": 400,
   "config": {
     "background": "#F0FFF0"  // Set background color
