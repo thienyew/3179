@@ -1,0 +1,112 @@
+.pure-g {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.pure-u-1 img {
+    width: 1420px;
+}
+
+.pure-u-1-6 img {
+    margin-top: 50px;
+    margin-left: 70px;
+    height: 85px;
+    width: 85px;
+}
+
+.pure-u-1-2 {
+    margin-top: 60px;
+}
+
+.pure-u-1-8 img {
+    margin-top: 20px;
+    height: 65px;
+    width: 65px;
+}
+
+h3 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+h4 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 17px;
+}
+
+#title {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 45px;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #0570b0;
+}
+
+#title_description {
+    text-align: left;
+    margin-top: 40px;
+    /* font-family: ; */
+}
+
+#bold {
+    font-weight: bold;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 350;
+}
+
+
+#bar_chart1 {
+    height: 400px;
+    width: 600px;
+}
+
+#bat_chart2 {
+    height: 400px;
+    width: 600px;
+}
+
+#bump_chart {
+    height: 400px;
+    width: 600px;
+}
+
+#choropleth_map {
+    height: 400px;
+    width: 600px;
+}
+
+#waterfall_chart {
+    height: 450px;
+    width: 600px;
+}
+
+#heat_map {
+    height: 450px;
+    width: 600px;
+}
+
+#dot_ranged_graph {
+    height: 400px;
+    width: 600px;
+}
+
+#scatter_plot {
+    height: 400px;
+    width: 600px;
+}
+
+
+
+#authorship {
+    margin-top: 50px;
+    /* margin-bottom: 10px; */
+    font-size: smaller;
+    font-style: italic;
+    text-align: right;
+}
