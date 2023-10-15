@@ -1,6 +1,6 @@
 {
-    "width": "container",
-    "height": 450,
+    "width": 500,
+    "height": 400,
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {"url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"},
     "mark": "circle",
