@@ -3,7 +3,7 @@
       "width": 800,
       "height": 400,
       "data": {
-        "url": "https://raw.githubusercontent.com/raidishahrom/Monash-Vis/main/Data/world_data_2023.csv"
+        "url": "https://raw.githubusercontent.com/thienyew/A-Comprehensive-Overview-of-Global-Trends/main/world_data_2023.csv"
       },
       "params": [
         {
