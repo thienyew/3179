@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 500,
+  "width": 800,
   "height": 400,
   "title": "CPI VALUE AROUND THE WORLD",
   "projection": { "type": "equalEarth" },
